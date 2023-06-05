@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="banner">
+                <div class="banner-text">
+                    <h1>TODO TASK</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="text-bg-light p-3">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+          <form method="POST" class="mp-3 shadow">
+                {% csrf_token %}
+              <div class="form-group">
+                  <h1 style="color:#fe0000">New Task</h1><br>
+                   <input type="text"  class="form-control" name="task_name" placeholder="Enter Task Name"><br>
+              </div>
+              <div class="form-group">
+                  <input type="text" class="form-control"  name="priority" placeholder="Enter Priority"><br>
+              </div>
+              <div class="form-group">
+                  <input type="date" class="form-control"  name="date" placeholder="Enter DueDate"><br>
+              </div>
+              <div class="text-center">
+                  <input type="submit" class="btn btn-success" value="ADD" >
+              </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+            <h1 style="color:#ac0d80;">Scheduled Task</h1><br>
+            {% for i in task %}
+               <div class="shadow card" >
+                   <div class="card-body">
+                       <h5 class="card-title">{{i.task_name}}</h5>
+                         <p><b>{{i.priority}}</b></p>
+                         <p><b>{{i.date}}</b></p>
+                         <a class="btn btn-danger" href="{% url 'todoapp:delete' i.id %}">Done</a>
+                         <a class="btn btn-primary" href="{% url 'todoapp:update' i.id %}">Update</a>
+                   </div>
+               </div>
+               <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
